@@ -1,0 +1,33 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "backlot"
+version = "0.1.0"
+description = "Experimental control plane for remote Linux desktop sandboxes."
+readme = "README.md"
+requires-python = ">=3.11"
+dependencies = [
+  # asymmetric primitives in the stdlib, and a pure-python Ed25519 is not a
+  # thing to put under a money contract.
+  "cryptography>=44.0",
+  "fastapi>=0.116",
+  "httpx>=0.28",
+  "modal==1.5.2",
+  "pydantic>=2.11",
+  "pyyaml>=6.0",
+  "uvicorn>=0.35",
+]
+
+[project.optional-dependencies]
+dev = [
+  "openai>=1.99",
+  "pytest>=8.4",
+]
+
+[project.scripts]
+backlot = "backlot.client:main"
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
